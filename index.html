@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elements Periodic Table</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <script type="text/x-template" id="element-template">
+    <div class="element" :style="{ '--xpos': xpos, '--ypos': ypos, '--color': color }" :id="`element-${number}`" @mouseover="emitMouseover">
+      <span class="atomic-number">{{ number }}</span>
+      <h1 class="symbol">{{ symbol }}</h1>
+      <span class="name">{{ name }}</span><br>
+      <span class="mass">{{ mass | massFormat }}</span>
+    </div>
+  </script>
+
+  <div id="app">
+    <div class="ptable-container">
+      <header>Periodic Table of the Elements</header>
+      <pt-element v-for="element in elements" :key="element.number" :number="element.number" @mouseover="updateDetails"></pt-element>
+    </div>
+
+    <div class="element-details">
+      <h1 class="symbol" :style="{ 'color': selected.color }">{{ selected.symbol }}</h1>
+      <h2>{{ selected.name }}</h2>
+      <div class="atomic-number">{{ selected.number }}</div>
+
+      <div>
+        <strong class="font-medium">Mass</strong>
+        <div class="mass-number">{{ selected.mass | massFormat }}</div>
+      </div>
+
+      <div class="dot" :style="{ '--color': selected.color }"></div>
+      <div class="category">{{ selected.category | capitalize }}</div>
+    </div>
+  </div>
+
+  <!-- Подключение Vue.js -->
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+  <!-- Подключение Numeral.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+
+  <!-- Подключение Script.js -->
+  <script src="./script.js"></script>
+</body>
+</html>
